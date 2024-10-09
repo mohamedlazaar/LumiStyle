@@ -6,9 +6,8 @@ import NavBar from './components/navbar/NavBar'
 import Footer from './components/navbar/Footer';
 import Home from './Home'
 import NosProduits from './NosProduits';
-import ProductDetails from './components/sections/productDetails';
-import { collectionData } from './collectionData.js';
 import AboutUs from './components/sections/AboutUs';
+import ProductPage from './ProductPage';
 
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path='/nos-produits' element={<NosProduits />} />
         <Route path='/about-us' element={<AboutUs />} />
-        <Route path="/produits/:id/:title" element={<ProductDetails  data={collectionData}/>} />
+        <Route path="/produits/:id/:title" element={<ProductPage />} />
 
       </Routes>
       <Footer /> 

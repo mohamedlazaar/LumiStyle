@@ -40,8 +40,8 @@ function CatalogProducts({ data }) {
 
             {/* Product Info */}
             <div className="relative z-10 p-6 flex flex-col text-left text-white space-y-4 gap-4">
-              <h2 className="text-xl md:text-2xl md:text-left text-center  font-extrabold">{product.title}</h2>
-              <p className="text-xl md:text-3xl font-extrabold text-white">${product.price}</p>
+              <h2 className="text-xl md:text-2xl text-left  font-extrabold">{product.title}</h2>
+              <p className="text-xl md:text-2xl font-bold text-white">${product.price}</p>
 
               {/* Hidden a tag that shows on hover */}
               <Link

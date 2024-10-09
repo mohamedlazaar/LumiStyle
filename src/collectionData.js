@@ -14,7 +14,9 @@ export const collectionData = [
         ],
         variants:{
             color: ["rouge", "bleu", "vert"]
-        }
+        },
+        rating:"5.0",
+        reviews:"100"
     },
     {
         id: 2,

@@ -4,6 +4,7 @@ import FeaturedProduct from './components/sections/FeaturedProduct'
 import CatalogProducts from './components/sections/CatalogProducts'
 import BannerProducts from './components/sections/BannerProd'
 import { heroData, featuredProductData, catalogProductData, BannerProductData } from './data.js'
+import ClientsTestemonials from './components/sections/ClientsTestemonials'
 
 
 function Home() {
@@ -13,6 +14,7 @@ function Home() {
       <FeaturedProduct data={featuredProductData} />
       <CatalogProducts data={catalogProductData} />
       <BannerProducts data={BannerProductData} />
+      <ClientsTestemonials />
      </div>
   )
 }
