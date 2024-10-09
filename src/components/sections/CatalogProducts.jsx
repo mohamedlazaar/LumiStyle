@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 function CatalogProducts({ data }) {
   const ref = useRef(null);
-  const isVisible = useScrollAnimation(ref, { threshold: 0.4 }); 
+  const isVisible = useScrollAnimation(ref, { threshold: 0.2 }); 
 
 
   // Handle dot click navigation
@@ -39,14 +39,14 @@ function CatalogProducts({ data }) {
             <div className="absolute inset-0 bg-black bg-opacity-50 group-hover:bg-opacity-40 transition-all duration-300"></div>
 
             {/* Product Info */}
-            <div className="relative z-10 p-6 flex flex-col text-left text-white space-y-4 gap-4">
-              <h2 className="text-xl md:text-2xl text-left  font-extrabold">{product.title}</h2>
-              <p className="text-xl md:text-2xl font-bold text-white">${product.price}</p>
+            <div className="relative z-10 p-6 flex flex-col items-center  text-white space-y-4 gap-4">
+              <h2 className="text-2xl md:text-3xl text-center   font-extrabold">{product.title}</h2>
+              <p className="text-2xl md:text-3xl font-bold text-white">${product.price}</p>
 
               {/* Hidden a tag that shows on hover */}
               <Link
                 to={`/produits/${product.id}/${product.title.toLowerCase().replace(/\s+/g, '-')}`} 
-                className="bg-yellow-500 self-start hover:bg-black hover:text-white  align-middle select-none font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block  text-black shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                className="bg-yellow-500 self-center  hover:bg-black hover:text-white  align-middle select-none font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block  text-black shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
               >
                 View Product
               </Link>

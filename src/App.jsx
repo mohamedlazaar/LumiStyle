@@ -8,6 +8,7 @@ import Home from './Home'
 import NosProduits from './NosProduits';
 import AboutUs from './components/sections/AboutUs';
 import ProductPage from './ProductPage';
+import ScrollToTop from './components/ScrollToTop';
 
 
 function App() {
@@ -16,13 +17,13 @@ function App() {
   return (
     <div className="font-poppins">
       <Router>
+        <ScrollToTop/>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='/nos-produits' element={<NosProduits />} />
         <Route path='/about-us' element={<AboutUs />} />
         <Route path="/produits/:id/:title" element={<ProductPage />} />
-
       </Routes>
       <Footer /> 
     </Router>  
