@@ -29,14 +29,14 @@ function Footer() {
              <div className="flex">
               <ul className='flex flex-col gap-6 text-sm font-medium items-start    sm:gap-4    '>
                 <li><h2 className='underline text-xl'>Contactez-nous</h2></li>
-                <li><p className='text-lg'>WhatsApp: <span className='italic font-extralight'>+212612345678</span></p></li>
-                <li><p className='text-lg'>Email: <span className='italic font-extralight'>text@gmail.com</span></p></li>
+                <li><p className='text-lg'>WhatsApp: <span className='italic font-extralight'>+212664816791</span></p></li>
+                <li><p className='text-lg'>Email: <span className='italic font-extralight'>lazaar.soufian.sl@gmail.com</span></p></li>
               </ul>
              </div>
             </div>
             <div className="text-center text-sm text-gray-400 p-4 " style={{borderTop:'1px solid #fff'}}>
               <p>&copy; 2024 Lumi Style. All rights reserved. || Site realise par: <a href="https://www.linkedin.com/in/mohamed-lazaar/" className='decoration-none text-blue-500 hover:text-blue-800 transition-all ' target="_blank" rel="noopener noreferrer">
-                Mohamed Lazaar
+               ML
                 </a></p>
               </div>
 

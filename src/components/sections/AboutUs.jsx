@@ -2,7 +2,7 @@ import React from 'react'
 import logo from '../navbar/logo.png'
 
 function AboutUs() {
-    const storeOwnerPhoneNumber = '1234567890'; // Example format: '1234567890'
+    const storeOwnerPhoneNumber = '+212664816791'; // Example format: '1234567890'
 
     // Construct the WhatsApp message URL
     const whatsappMessage = `https://wa.me/${storeOwnerPhoneNumber}`;
