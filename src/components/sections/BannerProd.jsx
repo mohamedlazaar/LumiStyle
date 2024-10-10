@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 function BannerProducts({data}) {
     const ref = useRef(null);
-    const isVisible = useScrollAnimation(ref, { threshold: 0.3 }); 
+    const isVisible = useScrollAnimation(ref, { threshold: 0.2 }); 
   return (
     <motion.div  ref={ref}
     initial="hidden"
