@@ -14,7 +14,7 @@ function BannerProducts({data}) {
     animate={isVisible ? 'visible' : 'hidden'}
     variants={scrollAnimation()}
      className='my-animated-component container mx-auto flex flex-col gap-10 px-5 pt-8 pb-24'>
-      <h1 className='text-4xl font-bold'>Latest Products</h1>
+      <h1 className='text-2xl md:text-4xl font-bold'>Latest Products</h1>
     {data.map((datta) =>(
         <div key={datta.id} className='flex md:flex-row flex-col-reverse items-center justify-center bg-white border-2  md:h-72 rounded-2xl    overflow-hidden '>
             <div className="md:w-2/3 h-full py-6 px-6 flex flex-col justify-center gap-4">
