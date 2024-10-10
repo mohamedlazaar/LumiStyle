@@ -1,19 +1,16 @@
 import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
-import { scrollAnimation } from '../variants'; // Import the scroll animation function
-import useScrollAnimation from '../UseScrollAnimation'; // Import the custom hook
+// import { motion } from 'framer-motion';
+// import { scrollAnimation } from '../variants'; // Import the scroll animation function
+// import useScrollAnimation from '../UseScrollAnimation'; // Import the custom hook
 import { Link } from 'react-router-dom';
 
 
 function BannerProducts({data}) {
-    const ref = useRef(null);
-    const isVisible = useScrollAnimation(ref, { threshold: 0.2 }); 
+
+  
   return (
-    <motion.div  ref={ref}
-    initial="hidden"
-    animate={isVisible ? 'visible' : 'hidden'}
-    variants={scrollAnimation()}
-     className='my-animated-component container mx-auto flex flex-col gap-10 px-5 pt-8 pb-24'>
+    <div  
+     className=' container mx-auto flex flex-col gap-10 px-5 pt-8 pb-24'>
       <h1 className='text-2xl md:text-4xl font-bold'>Latest Products</h1>
     {data.map((datta) =>(
         <div key={datta.id} className='flex md:flex-row flex-col-reverse items-center justify-center bg-white border-2  md:h-72 rounded-2xl    overflow-hidden '>
@@ -49,7 +46,7 @@ function BannerProducts({data}) {
         </div>
     ))}
 
-    </motion.div>
+    </div>
   )
 }
 
