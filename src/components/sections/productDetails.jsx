@@ -32,9 +32,9 @@ function ProductDetails({ data }) {
   return (
     <div className="bg-white">
       <div className="container mx-auto  py-8">
-        <div className="flex flex-wrap  mx-4">
+        <div className="flex flex-wrap   mx-4">
           {/* Product Images */}
-          <div className="w-full md:w-1/2 px-4 mb-8 flex flex-col justify-center mx-auto">
+          <div className="w-full md:w-1/2 px-4 mb-8 flex flex-col mx-auto">
             <img
               src={mainImage}
               alt="Product"
@@ -42,7 +42,7 @@ function ProductDetails({ data }) {
               id="mainImage"
             />
 
-            <div className="flex gap-4 py-4 justify-center ">
+            <div className="flex gap-4 py-4 justify-center flex-wrap ">
               {product.images.map((image, index) => (
                 <img
                   key={index}
@@ -59,7 +59,8 @@ function ProductDetails({ data }) {
           <div className="w-full md:w-1/2 px-4">
             <h2 className="text-3xl font-bold mb-2">{product.title}</h2>
             <div className="mb-4">
-              <span className="text-2xl font-bold mr-2">${product.price}</span>
+              <span className="text-2xl font-bold mr-2">{product.price}DH <span className='text-xl font-bold text-gray-400 line-through'>{product.compare_at_price}DH</span> <span className='font-extralight text-base text-gray-400 italic'>(prix négocié selon quantité)</span> </span>
+              
             </div>
 
             <div className="flex items-center mb-4">
@@ -85,20 +86,24 @@ function ProductDetails({ data }) {
             </div>
 
            {/* Color options */}
-            {/* <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-2">Color:</h3>
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-2">{product.colors.length === 0 ? "": <span>Colors:</span>}</h3>
               <div className="flex space-x-2">
-                {product.colors.map((color, index) => (
-                  <button
-                    key={index}
-                    className={w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${color}}
-                    style={{ backgroundColor: color }}
-                  ></button>
-                ))}
+              { product.colors.map((color, index) => (
+                <div
+                  key={index}
+                  className={`w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${color}`}
+                  style={{ backgroundColor: color }}
+                ></div>
+              ))}
+
               </div>
-            </div> */}
-            <div className="mb-4">
-              <p className="text-gray-700 mb-6">{product.description}</p> 
+            </div>
+            <div className="mb-4 flex flex-col">
+              {product.description.map((desc, index)=>(
+                <p key={index} className='mb-5'>{desc}</p>
+              ))}
+             
             </div>
            
 

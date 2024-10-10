@@ -33,8 +33,8 @@ function FeaturedProduct({data}) {
                     {product.price}
                   </p> */}
               </div>
-              <p className="block   text-sm antialiased font-normal  leading-normal text-gray-700 opacity-75">
-                  {product.price}
+              <p className="block   text-base mb-3 antialiased font-normal  leading-normal text-gray-700 opacity-75">
+                  {product.price} DH
               </p>
               <div className="flex justify-center items-center mb-4">
               {/* Rating stars */}
