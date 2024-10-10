@@ -29,7 +29,7 @@ function CatalogProducts({ data }) {
             style={{
               backgroundImage: `url(${product.featured_image})`,
               backgroundSize: 'cover',
-              backgroundPosition: 'right',
+              backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               height: "500px",
               scrollSnapAlign: 'center',
