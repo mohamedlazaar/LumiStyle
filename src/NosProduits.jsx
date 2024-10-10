@@ -1,6 +1,6 @@
 import React from 'react'
 import AllProducts from './components/sections/AllProducts'
-import {featuredProductData} from './collectionData.js'
+import {featuredProductData} from './data.js'
 
 function NosProduits() {
   return (
