@@ -61,7 +61,7 @@ function CatalogProducts({ data }) {
                     />
                   </svg>
                 ))}
-              <span className="ml-2 text-gray-600">{product.rating} {product.reviews}</span>
+              <span className="ml-2 text-white">{product.rating}</span>
             </div>
 
               {/* Hidden a tag that shows on hover */}
