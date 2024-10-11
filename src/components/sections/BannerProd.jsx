@@ -36,7 +36,7 @@ function BannerProducts({data}) {
                     />
                   </svg>
                 ))}
-              <span className="ml-2 text-gray-600">{datta.rating} {datta.reviews}</span>
+              <span className="ml-2 text-white">{datta.rating}</span>
             </div>
                 <Link to={`/produits/${datta.id}/${datta.title.toLowerCase().replace(/\s+/g, '-')}`} onClick={window.scrollTo(0, 0)}
                 className='self-start bg-yellow-500 hover:bg-black hover:text-white  align-middle select-none  font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block  text-black shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 '>Afficher Plus</Link>
