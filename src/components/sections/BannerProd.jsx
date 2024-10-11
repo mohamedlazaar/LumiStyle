@@ -16,7 +16,7 @@ function BannerProducts({data}) {
         <div key={datta.id} className='flex md:flex-row flex-col-reverse items-center justify-center bg-white border-2  md:h-72 rounded-2xl    overflow-hidden '>
             <div className="md:w-2/3 h-full py-6 px-6 flex flex-col justify-center gap-4">
                 <h2 className="text-base md:text-3xl font-bold text-black">{datta.title}</h2>
-                <p className="text-base md:text-3xl font-bold text-black">{datta.price}</p>
+                <p className="text-sm md:text-2xl font-bold text-black">{datta.price} DH</p>
                 <div className="flex  items-center mb-4">
               {/* Rating stars */}
               {Array(5)
