@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import logoWhite from './logoWhite.png'
+import logo from './logo.png'
 
 
 function Footer() {
@@ -16,7 +16,7 @@ function Footer() {
         <footer className="bg-black text-white text-center p-4 pt-10">
             <div className="container flex flex-col md:flex-row justify-center space-y-8 md:space-y-0  md:justify-between md:px-10 pb-10">
              <div className="flex md:justify-center pb-10 items-center">
-                <Link to="/" onClick={handleHomeClick}><img src={logoWhite} alt="Lumi Style"  className='w-28' style={{borderRadius: "100%"}} /></Link>
+                <Link to="/" onClick={handleHomeClick}><img src={logo} alt="Lumi Style"  className='w-28' style={{borderRadius: "100%"}} /></Link>
              </div>
              <div className="flex">
              <ul className='flex flex-col gap-6 text-sm font-medium items-start    sm:gap-4   '>

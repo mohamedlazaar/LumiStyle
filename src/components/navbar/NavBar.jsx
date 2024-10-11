@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logoWhite from './logoWhite.png';
+import logo from './logo.png';
 
 function NavBar() {
   useEffect(() => {
@@ -51,9 +51,9 @@ function NavBar() {
           <div className="text-3xl font-bold">
             <Link to="/" >
               <img
-                key={logoWhite.id}
-                className="w-28 h-auto p-2 hover:scale-105 transition-transform duration-300 ease-in-out rounded-full"
-                src={logoWhite}
+                key={logo.id}
+                className="w-28 h-auto p-2 hover:scale-105 transition-transform duration-300 ease-in-out"
+                src={logo}
                 alt="Lumi Style"
               />
             </Link>
