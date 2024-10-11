@@ -41,7 +41,7 @@ function CatalogProducts({ data }) {
             {/* Product Info */}
             <div className="relative z-10 p-6 flex flex-col items-center  text-white space-y-4 gap-4">
               <h2 className="text-2xl md:text-3xl text-center   font-extrabold">{product.title}</h2>
-              <p className="text-2xl md:text-3xl font-bold text-white">${product.price}</p>
+              <p className="text-2xl md:text-3xl font-bold text-white">{product.price} DH</p>
               <div className="flex justify-center items-center mb-4">
               {/* Rating stars */}
               {Array(5)
