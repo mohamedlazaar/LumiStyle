@@ -51,7 +51,6 @@ function NavBar() {
           <div className="text-3xl font-bold">
             <Link to="/" >
               <img
-                key={logo.id}
                 className="w-28 h-auto p-2 hover:scale-105 transition-transform duration-300 ease-in-out"
                 src={logo}
                 alt="Lumi Style"

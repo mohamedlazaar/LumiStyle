@@ -25,7 +25,7 @@ function ProductDetails({ data }) {
   };
  // Store owner's phone number (replace this with the actual phone number)
  const storeOwnerPhoneNumber = '+212664816791'; // Example format: '1234567890'
- const website_url = ""
+ const website_url = "https://www.lumi-style.com"
 
  // Construct the WhatsApp message URL
  const whatsappMessage = `https://wa.me/${storeOwnerPhoneNumber}?text=Hi, I'm interested in buying this product: *${product.title}* - ${product.description}. Here's the image of the product: ${product.featured_image}`;
