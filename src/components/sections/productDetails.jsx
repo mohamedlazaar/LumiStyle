@@ -27,7 +27,9 @@ function ProductDetails({ data }) {
  const storeOwnerPhoneNumber = '+212664816791'; // Example format: '1234567890'
  const website_url = "https://www.lumi-style.com"
  const productUrl = `${website_url}/produits/${product.id}/${product.title}`;
-
+ const shortDescription = product.description.length > 50 
+ ? product.description.slice(0, 50) + '...' 
+ : product.description;
 
  // Construct the WhatsApp message URL
  const whatsappMessage = `https://wa.me/${storeOwnerPhoneNumber}?text=Hi, I'm interested in buying this product: *${product.title}* - ${product.price}. Here's the image of the product: ${product.featured_image}`;
@@ -126,7 +128,7 @@ function ProductDetails({ data }) {
               <h3 className="text-lg font-semibold mb-2">Partager le produit :</h3>
             <div className="flex space-x-4 mt-4">
                             {/* // Facebook Share Button */}
-                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}&quote=Découvrez ce magnifique produit : ${encodeURIComponent(product.title)} ! Seulement à ${encodeURIComponent(product.price)} !`}
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}&quote=Découvrez ce magnifique produit : ${encodeURIComponent(product.title)} ! Seulement à ${encodeURIComponent(product.price)}DH !`}
                   target="_blank"
                   className="hover:text-blue-600"
                   aria-label="Share on Facebook">
@@ -136,7 +138,7 @@ function ProductDetails({ data }) {
                 </a>
 
                 {/* // Twitter Share Button */}
-                <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(productUrl)}&text=Découvrez ce produit incroyable : ${encodeURIComponent(product.title)} ! À seulement ${encodeURIComponent(product.price)} !`}
+                <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(productUrl)}&text=Découvrez ce produit incroyable : ${encodeURIComponent(product.title)} ! À seulement ${encodeURIComponent(product.price)}DH !`}
                   target="_blank"
                   className="hover:text-blue-400"
                   aria-label="Share on Twitter">
@@ -146,7 +148,7 @@ function ProductDetails({ data }) {
                 </a>
 
                 {/* // WhatsApp Share Button */}
-                <a href={`https://api.whatsapp.com/send?text=Découvrez ce produit incroyable : ${encodeURIComponent(product.title)} ! À seulement ${encodeURIComponent(product.price)} ! - ${encodeURIComponent(productUrl)}`}
+                <a href={`https://api.whatsapp.com/send?text=Découvrez ce produit incroyable : ${encodeURIComponent(product.title)} ! À seulement ${encodeURIComponent(product.price)}DH ! - ${encodeURIComponent(productUrl)}`}
                   target="_blank"
                   className="hover:text-green-500"
                   aria-label="Share on WhatsApp">
@@ -156,7 +158,7 @@ function ProductDetails({ data }) {
                 </a>
 
                 {/* // LinkedIn Share Button */}
-                <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(productUrl)}&title=${encodeURIComponent(product.title)}&summary=${encodeURIComponent(product.description)}&source=YourWebsite`} 
+                <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(productUrl)}&title=${encodeURIComponent(product.title)}&summary=${encodeURIComponent(shortDescription)}&source=YourWebsite`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-blue-700"
@@ -167,7 +169,7 @@ function ProductDetails({ data }) {
                 </a>
 
                 {/* // Pinterest Share Button */}
-                <a href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(productUrl)}&media=${encodeURIComponent(product.featured_image)}&description=${encodeURIComponent(`Découvrez ce magnifique produit : ${product.title} ! Seulement à ${product.price} !`)}`} 
+                <a href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(productUrl)}&media=${encodeURIComponent(product.featured_image)}&description=${encodeURIComponent(`Découvrez ce magnifique produit : ${product.title} ! Seulement à ${product.price}DH !`)}`} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="hover:text-red-600"
