@@ -9,6 +9,7 @@ import NosProduits from './NosProduits';
 import AboutUs from './components/sections/AboutUs';
 import ProductPage from './ProductPage';
 import ScrollToTop from './components/ScrollToTop';
+import { Analytics } from "@vercel/analytics/react"
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/produits/:id/:title" element={<ProductPage />} />
       </Routes>
       <Footer /> 
+      <Analytics />
     </Router>  
     </div>
   );
