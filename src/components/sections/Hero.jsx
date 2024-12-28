@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import ImageCarousel from './ImageCarousel';
 
 function Hero() {
   return (
-    <div className='bg-yellow-500 pt-5 pb-10'>
-          <div className='container mx-auto h-full w-full px-6 space-x-0  md:space-x-6 justify-center items-center flex flex-col-reverse md:flex-row'>
-          <div className="md:w-1/2 flex flex-col space-y-2 gap-5 py-10 px-2 text-center md:text-left justify-center">
+    <div className='bg-yellow-500 pt-5 pb-10 '>
+          <div className=' container mx-auto h-full w-full px-6 space-x-0  md:space-x-6 justify-center items-center flex flex-col-reverse md:flex-row'>
+          <div className=" md:w-1/2 flex flex-col space-y-2 gap-5 py-10 px-2 text-center md:text-left justify-center">
             <h1 className='text-3xl md:text-5xl font-bold text-white'>Lumi Style</h1>
             <p className='md:text-base font-light text-black md:leading-relaxed'>
             Nous proposons des lampes de table élégantes et innovantes, conçues pour sublimer les hôtels et restaurants. Nos produits allient qualité supérieure et design unique pour créer des ambiances raffinées et mémorables. Que ce soit pour ajouter une touche de chaleur ou de sophistication, nous offrons des solutions d’éclairage qui allient esthétique et fonctionnalité.           

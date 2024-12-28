@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { FaPinterest, FaLinkedin , FaWhatsapp, FaFacebook } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
+
 
 function ProductDetails({ data }) {
   const { id } = useParams();
@@ -132,9 +136,8 @@ function ProductDetails({ data }) {
                   target="_blank"
                   className="hover:text-blue-600"
                   aria-label="Share on Facebook">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-                    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.437 9.879v-6.987h-2.54v-2.71h2.54v-2.071c0-2.507 1.492-3.89 3.778-3.89 1.096 0 2.238.195 2.238.195v2.465h-1.26c-1.244 0-1.63.772-1.63 1.562v1.839h2.773l-.443 2.71h-2.33v6.987C18.343 21.128 22 16.991 22 12z" />
-                  </svg>
+               
+                  <FaFacebook className='w-6 h-6' />
                 </a>
 
                 {/* // Twitter Share Button */}
@@ -142,9 +145,7 @@ function ProductDetails({ data }) {
                   target="_blank"
                   className="hover:text-blue-400"
                   aria-label="Share on Twitter">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-                    <path d="M23.643 4.937c-.835.37-1.73.62-2.675.732a4.673 4.673 0 0 0 2.048-2.578 9.222 9.222 0 0 1-2.916 1.113 4.66 4.66 0 0 0-7.946 4.247 13.223 13.223 0 0 1-9.595-4.865 4.634 4.634 0 0 0-.63 2.345 4.658 4.658 0 0 0 2.071 3.878 4.606 4.606 0 0 1-2.113-.584v.06a4.656 4.656 0 0 0 3.733 4.565 4.684 4.684 0 0 1-2.105.08 4.662 4.662 0 0 0 4.348 3.234A9.352 9.352 0 0 1 0 19.539 13.164 13.164 0 0 0 7.162 21c8.804 0 13.622-7.294 13.622-13.622 0-.208-.004-.416-.014-.623a9.733 9.733 0 0 0 2.373-2.474l-.5-.344z" />
-                  </svg>
+                  <FaXTwitter className='w-6 h-6' />
                 </a>
 
                 {/* // WhatsApp Share Button */}
@@ -152,9 +153,8 @@ function ProductDetails({ data }) {
                   target="_blank"
                   className="hover:text-green-500"
                   aria-label="Share on WhatsApp">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.138.559 4.221 1.624 6.065l-1.07 3.89 4.01-1.046A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.833 17.053a1.05 1.05 0 0 1-1.006.572c-2.047-.095-3.665-1.113-5.091-2.617-1.426-1.504-2.42-3.23-2.842-5.164a1.062 1.062 0 0 1 .288-1.037 1.092 1.092 0 0 1 1.074-.258c.475.109.983.365 1.52.771a12.568 12.568 0 0 0 1.676 1.065c.49.21.796.376 1.21.502a1.034 1.034 0 0 1 .619.625 1.1 1.1 0 0 1-.197 1.078l-.416.41a.242.242 0 0 0-.026.027c.005.027.018.054.039.082.062.083.146.159.255.229.198.13.476.283.79.446.568.283.86.35 1.172.3a.545.545 0 0 0 .457-.492.53.53 0 0 0-.29-.5z" />
-                  </svg>
+    
+                  <FaWhatsapp className='w-6 h-6' />
                 </a>
 
                 {/* // LinkedIn Share Button */}
@@ -163,9 +163,8 @@ function ProductDetails({ data }) {
                   rel="noopener noreferrer"
                   className="hover:text-blue-700"
                   aria-label="Share on LinkedIn">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-                    <path d="M19.994 3H4.007A1.007 1.007 0 0 0 3 4.006v15.988C3 20.551 3.448 21 4.007 21h15.987C20.552 21 21 20.552 21 19.994V4.007A1.007 1.007 0 0 0 19.994 3zM8.442 18.56H5.876V9.559h2.566v9.001zm-1.283-10.26a1.478 1.478 0 1 1 0-2.956 1.478 1.478 0 0 1 0 2.956zm11.399 10.26h-2.566v-4.73c0-1.128-.02-2.584-1.577-2.584-1.577 0-1.818 1.235-1.818 2.505v4.808h-2.566V9.559h2.465v1.226h.035c.343-.652 1.182-1.338 2.43-1.338 2.598 0 3.079 1.71 3.079 3.933v5.18z" />
-                  </svg>
+           
+                  <FaLinkedin className='w-6 h-6' />
                 </a>
 
                 {/* // Pinterest Share Button */}
@@ -174,9 +173,8 @@ function ProductDetails({ data }) {
                     rel="noopener noreferrer"
                     className="hover:text-red-600"
                     aria-label="Share on Pinterest">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-                    <path d="M12 0C5.372 0 0 5.372 0 12c0 4.847 3.057 8.952 7.402 10.559-.103-.893-.196-2.264.041-3.24.214-.902 1.379-5.734 1.379-5.734s-.352-.706-.352-1.351 0-1.264.142-1.578.75a3.165 3.165 0 0 0 .086.04c.896.366 1.649 1.277 1.649 2.364 0 1.36-.885 2.509-2.476 2.509-1.224 0-2.114-.924-2.165-1.95 0-.015-.006-.03-.007-.045 0-.02.016-.05.032-.083.002-.01.006-.02.007-.03.29-.878.954-2.712.954-2.712s.408.868.408 1.058c0 1.474-1.032 2.287-1.032 2.287-1.138 0-1.571-1.009-1.571-1.694 0-.838.623-1.22 1.166-1.22.386 0 .745.196.745.196.338.203.545.59.545 1.003 0 1.019-.493 1.748-1.538 1.748-1.154 0-2.293-1.027-2.293-2.618 0-1.022.346-1.614.715-2.061.59-.703 1.397-1.038 2.073-1.038 1.658 0 2.993 1.192 2.993 2.693 0 1.635-.662 2.88-1.658 3.477-1.517.81-3.234 1.49-4.55 2.311a11.978 11.978 0 0 1-2.894-7.687C0 5.372 5.372 0 12 0z" />
-                    </svg>
+            
+                    <FaPinterest className='w-6 h-6'/>
                 </a>
                 </div>
 
