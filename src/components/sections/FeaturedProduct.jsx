@@ -43,7 +43,7 @@ function FeaturedProduct() {
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}
       variants={scrollAnimation()}
-      className="container my-animated-component text-center mx-auto px-8 space-y-20 py-16"
+      className="md:container my-animated-component text-center mx-auto  py-16"
     >
       {!isLoading && ( // Only show the title and button after loading is complete
         <>

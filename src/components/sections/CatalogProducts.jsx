@@ -35,7 +35,7 @@ function CatalogProducts() {
   // Handle dot click navigation
 
   return (
-    <div className="container mx-auto p-6 mb-20 overflow-hidden">
+    <div className="container mx-auto mb-20 overflow-hidden">
       <motion.div
            ref={ref}
            initial="hidden"

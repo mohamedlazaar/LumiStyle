@@ -28,7 +28,7 @@ function BannerProducts() {
   }, []);
 
   return (
-    <div className="container mx-auto flex flex-col gap-10 px-16 pt-8 pb-24">
+    <div className="container mx-auto flex flex-col gap-10 px-6 pt-8 pb-24">
       {!isLoading && ( // Only show title and products after loading is complete
         <>
           <h1 className="text-2xl md:text-4xl font-bold">Derniers produits</h1>
