@@ -27,6 +27,7 @@ function FeaturedProduct() {
       console.error('Error fetching products:', error);
     } finally {
       setIsLoading(false); // Set loading to false after fetch is complete
+      
     }
   }
 
