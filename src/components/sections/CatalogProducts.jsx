@@ -1,10 +1,33 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { scrollAnimation } from '../variants'; // Import the scroll animation function
 import useScrollAnimation from '../UseScrollAnimation'; // Import the custom hook
 import { Link } from 'react-router-dom';
+import { db } from '../../firebase/config';
+import { getDocs, collection } from 'firebase/firestore';
 
-function CatalogProducts({ data }) {
+function CatalogProducts() {
+  const [catalogProductData, setCatalogProductData] = useState([]);
+
+  // Fetch products from Firestore
+  async function getProducts() {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'section2'));
+      const catalogProductsData = [];
+      querySnapshot.forEach((doc) => {
+        catalogProductsData.push({ ...doc.data() });
+      });
+      setCatalogProductData(catalogProductsData);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }
+
+  useEffect(() => {
+  
+    getProducts();
+    console.log(catalogProductData)
+  }, []);
   const ref = useRef(null);
   const isVisible = useScrollAnimation(ref, { threshold: 0.2 }); 
 
@@ -12,26 +35,27 @@ function CatalogProducts({ data }) {
   // Handle dot click navigation
 
   return (
-    <div className=" container mx-auto py-6 mb-20 overflow-hidden">
+    <div className="container mx-auto p-6 mb-20 overflow-hidden">
       <motion.div
            ref={ref}
            initial="hidden"
            animate={isVisible ? 'visible' : 'hidden'}
            variants={scrollAnimation()}
-        className="my-animated-component grid grid-cols-1 md:grid-cols-2 gap-1  px-5"
+        className="my-animated-component grid grid-cols-1 md:grid-cols-2 justify-center lg:grid-cols-2 gap-1  px-5"
 
       >
-        {data.map((product, index) => (
+        {catalogProductData.map((product, index) => (
           <div
           index={index}
             key={product.id} // Use unique id for the key
             className="relative  shadow-lg overflow-hidden group flex flex-col justify-center  cursor-pointer rounded-lg"
             style={{
-              backgroundImage: `url(${product.featured_image})`,
+              backgroundImage: `url(${product.Images})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              height: "500px",
+              minHeight: "600px",
+              height: "100%",
               scrollSnapAlign: 'center',
             }}
           >
@@ -40,8 +64,8 @@ function CatalogProducts({ data }) {
 
             {/* Product Info */}
             <div className="relative z-10 p-6 flex flex-col items-center  text-white space-y-4 gap-4">
-              <h2 className="text-2xl md:text-3xl text-center   font-extrabold">{product.title}</h2>
-              <p className="text-2xl md:text-3xl font-bold text-white">{product.price} DH</p>
+              <h2 className="text-2xl md:text-3xl text-center   font-extrabold">{product.Title}</h2>
+              <p className="text-2xl md:text-3xl font-bold text-white">{product.Price} DH</p>
               <div className="flex justify-center items-center mb-4">
               {/* Rating stars */}
               {Array(5)
@@ -52,7 +76,7 @@ function CatalogProducts({ data }) {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className={`w-6 h-6 ${i < product.rating ? 'text-yellow-500' : 'text-gray-300'}`}
+                    className={`w-6 h-6 ${i < product.Rating ? 'text-yellow-500' : 'text-gray-300'}`}
                   >
                     <path
                       fillRule="evenodd"
@@ -61,12 +85,12 @@ function CatalogProducts({ data }) {
                     />
                   </svg>
                 ))}
-              <span className="ml-2 text-white">{product.rating}</span>
+              <span className="ml-2 text-white">{product.Rating} ({product.reviewsCount})</span>
             </div>
 
               {/* Hidden a tag that shows on hover */}
               <Link
-                to={`/produits/${product.id}/${product.title.toLowerCase().replace(/\s+/g, '-')}`} 
+                to={`/produits/${product.id}/${product.Title.toLowerCase().replace(/\s+/g, '-')}`} 
                 className="bg-yellow-500 self-center  hover:bg-black hover:text-white  align-middle select-none font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block  text-black shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
               >
                 View Product

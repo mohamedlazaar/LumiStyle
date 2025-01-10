@@ -1,74 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaPinterest, FaLinkedin , FaWhatsapp, FaFacebook } from "react-icons/fa";
+import { FaPinterest, FaLinkedin, FaWhatsapp, FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { db } from '../../firebase/config';
+import { doc, getDoc } from 'firebase/firestore';
+import { Helmet } from 'react-helmet-async';
+import { color } from 'framer-motion';
 
-
-
-function ProductDetails({ data }) {
+function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState('');
 
   useEffect(() => {
-    const selectedProduct = data.find((product) => product.id === parseInt(id));
-    if (selectedProduct) {
-      setProduct(selectedProduct);
-      if (Array.isArray(selectedProduct.images) && selectedProduct.images.length > 0) {
-        setMainImage(selectedProduct.images[0]); // Safely set the main image
+    async function fetchProduct() {
+      try {
+        const docRef = doc(db, 'products', id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const productData = docSnap.data();
+          setProduct(productData);
+
+          if (Array.isArray(productData.Images) && productData.Images.length > 0) {
+            setMainImage(productData.Images[0]); // Safely set the main image
+          }
+        } else {
+          console.error('No such product!');
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
       }
     }
-  }, [id, data]);
+
+    fetchProduct();
+  }, [id]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="w-[100vw] h-[100vh] flex justify-center items-center">Loading...</div>;
   }
 
   const handleImageChange = (imageSrc) => {
     setMainImage(imageSrc);
   };
- // Store owner's phone number (replace this with the actual phone number)
- const storeOwnerPhoneNumber = '+212664816791'; // Example format: '1234567890'
- const website_url = "https://www.lumi-style.com"
- const productUrl = `${website_url}/produits/${product.id}/${product.title}`;
- const shortDescription = product.description.length > 50 
- ? product.description.slice(0, 50) + '...' 
- : product.description;
 
- // Construct the WhatsApp message URL
- const whatsappMessage = `https://wa.me/${storeOwnerPhoneNumber}?text=Hi, I'm interested in buying this product: *${product.title}* - ${product.price}. Here's the image of the product: ${product.featured_image}`;
- return (
+  const storeOwnerPhoneNumber = '+212664816791';
+  const website_url = "https://www.lumi-style.com";
+  const productUrl = `${website_url}/produits/${id}/${product.Title || 'product'}`;
+  const whatsappMessage = `https://wa.me/${storeOwnerPhoneNumber}?text=Hi, I'm interested in buying this product: *${product.Title || 'Product'}* - ${product.Price || 'Price not available'}. Here's the image of the product: ${mainImage}`;
+
+  return (
     <div className="bg-white">
-      <div className="container mx-auto  py-8">
-        <div className="flex flex-wrap   mx-4">
+      <Helmet>
+        <title>{product.Title} | Lumi Style</title>
+        <meta name="description" content={product.Description} />
+        <meta name="keywords" content="lamps, stylish lamps, premium lighting, modern lamps, Lumi Style, home lighting, decorative lamps, buy lamps online" />
+      </Helmet>
+      <div className="container mx-auto py-8">
+        <div className="flex flex-wrap mx-4">
           {/* Product Images */}
           <div className="w-full md:w-1/2 px-4 mb-8 flex flex-col mx-auto">
             <img
-              src={mainImage}
-              alt="Product"
+              src={mainImage || '/placeholder-image.jpg'}
+              alt={product.Title || 'Product'}
               className="w-full md:w-2/3 h-auto rounded-lg shadow-md mb-4 mx-auto"
-              id="mainImage"
             />
-
-            <div className="flex gap-4 py-4 justify-center flex-wrap ">
-              {product.images.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`Product image ${index}`}
-                  onClick={() => handleImageChange(image)}
-                  className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                />
-              ))}
+            <div className="flex gap-4 py-4 justify-center flex-wrap">
+              {product.Images &&
+                product.Images
+                  .filter((image) => image !== '') // Exclude empty image sources
+                  .map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      alt={`Product image ${index}`}
+                      onClick={() => handleImageChange(image)}
+                      className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
+                    />
+                  ))}
             </div>
           </div>
 
           {/* Product Details */}
           <div className="w-full md:w-1/2 px-4">
-            <h2 className="text-3xl font-bold mb-2">{product.title}</h2>
+            <h2 className="text-3xl font-bold mb-2">{product.Title || 'No Title'}</h2>
             <div className="mb-4">
-              <span className="text-2xl font-bold mr-2">{product.price}DH <span className='text-xl font-bold text-gray-400 line-through'>{product.compare_at_price}DH</span> <span className='font-extralight text-base text-gray-400 italic'>(prix négocié selon quantité)</span> </span>
-              
+              <span className="text-2xl font-bold mr-2">
+                {product.Price ? `${product.Price}.00 DH` : 'Price not available'}
+                {product.Compare_Price && (
+                  <span className="text-xl font-bold text-gray-400 line-through ml-2">
+                    {product.Compare_Price}.00 DH
+                  </span>
+                )}
+                <span className="font-extralight text-base text-gray-400 italic ml-2">
+                  (prix négocié selon quantité)
+                </span>
+              </span>
             </div>
 
             <div className="flex items-center mb-4">
@@ -81,7 +108,7 @@ function ProductDetails({ data }) {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className={`w-6 h-6 ${i < product.rating ? 'text-yellow-500' : 'text-gray-300'}`}
+                    className={`w-6 h-6 ${i < (product.rating || 0) ? 'text-yellow-500' : 'text-gray-300'}`}
                   >
                     <path
                       fillRule="evenodd"
@@ -90,94 +117,96 @@ function ProductDetails({ data }) {
                     />
                   </svg>
                 ))}
-              <span className="ml-2 text-gray-600">{product.rating} ({product.reviews} reviews)</span>
+              <span className="ml-2 text-gray-600">
+                {product.rating || 0} ({product.reviewCount || 0} reviews)
+              </span>
             </div>
 
-           {/* Color options */}
+            {/* Color options */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-2">{product.colors.length === 0 ? "": <span>Colors:</span>}</h3>
+              <h3 className="text-lg font-semibold mb-2">
+                {product.Colors && product.Colors.length > 0 ? 'Colors:' : ''}
+              </h3>
               <div className="flex space-x-2">
-              { product.colors.map((color, index) => (
-                <div
-                  key={index}
-                  className={`w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${color}`}
-                  style={{ backgroundColor: color }}
-                ></div>
-              ))}
+                {product.Colors &&
+                  product.Colors.map((color, index) => {
+                    let colorHex;
+                    if (color === 'gold') {
+                      colorHex = '#FFD700';
+                    } else if (color === 'silver') {
+                      colorHex = '#C0C0C0';
+                    } else if (color === 'bronze') {
+                      colorHex = '#CE8946';
+                    } else {
+                      colorHex = color; // Use the color as it is if it's not gold, silver, or bronze
+                    }
 
+                    return (
+                      <div
+                        key={index}
+                        className="w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        style={{ backgroundColor: colorHex }}
+                      ></div>
+                    );
+                  })}
               </div>
             </div>
-            <div className="mb-4 flex flex-col">
-              {product.description.map((desc, index)=>(
-                <p key={index} className='mb-5'>{desc}</p>
-              ))}
-             
-            </div>
-           
 
-            {/* Add to Cart button */}
+
+            {/* Description */}
+            <div className="mb-4 flex flex-col">
+              {product.Description &&
+                product.Description.split(/(?=\d-\s)/).map((part, index) => (
+                  <p key={index} >
+                    {part.trim()}
+                    <br />
+                    <br />
+                  </p>
+                ))}
+            </div>
+
+            {/* WhatsApp Button */}
             <div className="flex space-x-4 mb-6">
-            <a
+              <a
                 href={whatsappMessage}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-500 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                className="bg-green-500 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-green-600"
               >
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className='w-6 h-auto'><path fill="#ffffff" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                  Acheter Maintenant
-                </a>
+                <FaWhatsapp className="w-6 h-6" />
+                Acheter Maintenant
+              </a>
             </div>
+
+            {/* Share Options */}
             <div className="flex flex-col mb-6">
               <h3 className="text-lg font-semibold mb-2">Partager le produit :</h3>
-            <div className="flex space-x-4 mt-4">
-                            {/* // Facebook Share Button */}
-                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}&quote=Découvrez ce magnifique produit : ${encodeURIComponent(product.title)} ! Seulement à ${encodeURIComponent(product.price)}DH !`}
+              <div className="flex space-x-4 mt-4">
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`}
                   target="_blank"
                   className="hover:text-blue-600"
-                  aria-label="Share on Facebook">
-               
-                  <FaFacebook className='w-6 h-6' />
+                  aria-label="Share on Facebook"
+                >
+                  <FaFacebook className="w-6 h-6" />
                 </a>
-
-                {/* // Twitter Share Button */}
-                <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(productUrl)}&text=Découvrez ce produit incroyable : ${encodeURIComponent(product.title)} ! À seulement ${encodeURIComponent(product.price)}DH !`}
+                <a
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(productUrl)}`}
                   target="_blank"
                   className="hover:text-blue-400"
-                  aria-label="Share on Twitter">
-                  <FaXTwitter className='w-6 h-6' />
+                  aria-label="Share on Twitter"
+                >
+                  <FaXTwitter className="w-6 h-6" />
                 </a>
-
-                {/* // WhatsApp Share Button */}
-                <a href={`https://api.whatsapp.com/send?text=Découvrez ce produit incroyable : ${encodeURIComponent(product.title)} ! À seulement ${encodeURIComponent(product.price)}DH ! - ${encodeURIComponent(productUrl)}`}
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(productUrl)}`}
                   target="_blank"
                   className="hover:text-green-500"
-                  aria-label="Share on WhatsApp">
-    
-                  <FaWhatsapp className='w-6 h-6' />
+                  aria-label="Share on WhatsApp"
+                >
+                  <FaWhatsapp className="w-6 h-6" />
                 </a>
-
-                {/* // LinkedIn Share Button */}
-                <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(productUrl)}&title=${encodeURIComponent(product.title)}&summary=${encodeURIComponent(shortDescription)}&source=YourWebsite`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="hover:text-blue-700"
-                  aria-label="Share on LinkedIn">
-           
-                  <FaLinkedin className='w-6 h-6' />
-                </a>
-
-                {/* // Pinterest Share Button */}
-                <a href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(productUrl)}&media=${encodeURIComponent(product.featured_image)}&description=${encodeURIComponent(`Découvrez ce magnifique produit : ${product.title} ! Seulement à ${product.price}DH !`)}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-red-600"
-                    aria-label="Share on Pinterest">
-            
-                    <FaPinterest className='w-6 h-6'/>
-                </a>
-                </div>
-
+              </div>
             </div>
           </div>
         </div>

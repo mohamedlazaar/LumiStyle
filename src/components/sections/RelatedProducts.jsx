@@ -10,19 +10,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 
-function FeaturedProduct() {
+function RelatedProducts() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // State to track loading
+  const [randomProducts, setRandomProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch products from Firestore
   async function getProducts() {
     try {
-      const querySnapshot = await getDocs(collection(db, 'featured'));
+      const querySnapshot = await getDocs(collection(db, 'products'));
       const productsData = [];
       querySnapshot.forEach((doc) => {
-        productsData.push({ ...doc.data()});
+        productsData.push({ ...doc.data(), id: doc.id });
       });
       setFeaturedProducts(productsData);
+
+      // Randomize and pick 4 products
+      const sortProducts = productsData.sort(() => 0.5 - Math.random());
+      setRandomProducts(sortProducts.slice(0, 4));
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -45,9 +50,9 @@ function FeaturedProduct() {
       variants={scrollAnimation()}
       className="container my-animated-component text-center mx-auto px-8 space-y-20 py-16"
     >
-      {!isLoading && ( // Only show the title and button after loading is complete
+      {!isLoading && (
         <>
-          <h1 className="text-2xl md:text-4xl font-bold mb-10">Produits phares</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-10">Produits connexes</h1>
           <Swiper
             spaceBetween={20}
             slidesPerView={1}
@@ -60,12 +65,12 @@ function FeaturedProduct() {
             modules={[Pagination]}
             className="swiper-container "
           >
-            {featuredProducts.map((product) => (
-              <SwiperSlide key={product.id} className=" h-[600px] mb-10">
-                <div className="relative flex flex-col justify-start text-gray-700 bg-white shadow-md bg-clip-border rounded-xl h-[95%]">
+            {randomProducts.map((product) => (
+              <SwiperSlide key={product.id} className="h-[600px] mb-10">
+                <div className="relative flex flex-col justify-between text-gray-700 bg-white shadow-md bg-clip-border rounded-xl h-[95%]">
                   <div className="relative mx-4 my-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-[60%]">
                     <img
-                      src={product.Images}
+                      src={product.Images[0]}
                       alt={product.Title}
                       className="object-cover w-full h-full"
                     />
@@ -87,7 +92,7 @@ function FeaturedProduct() {
                             viewBox="0 0 24 24"
                             fill="currentColor"
                             className={`w-6 h-6 ${
-                              i < product.Rating ? 'text-yellow-500' : 'text-gray-300'
+                              i < product.rating ? 'text-yellow-500' : 'text-gray-300'
                             }`}
                           >
                             <path
@@ -98,32 +103,26 @@ function FeaturedProduct() {
                           </svg>
                         ))}
                       <span className="ml-2 text-gray-600">
-                        {product.Rating} ({product.reviewsCount})
+                        {product.Rating} ({product.reviewCount})
                       </span>
                     </div>
                   </div>
-                  <div className="flex justify-center items-center h-[15%] mx-auto">
+                  <div className="flex justify-center items-center h-[15%] mx-auto ">
                     <Link
                       to={`/produits/${product.id}/${product.Title.toLowerCase().replace(/\s+/g, '-')}`}
-                      className='bg-yellow-500 hover:bg-black hover:text-white align-middle select-none font-bold text-center uppercase transition-all text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20'
+                      className="bg-yellow-500 hover:bg-black hover:text-white align-middle select-none font-bold text-center uppercase transition-all text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20"
                     >
-                        More Details
+                      More Details
                     </Link>
                   </div>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-          <Link
-            to="/nos-produits"
-            className="bg-yellow-500 hover:bg-black hover:text-white inline-block font-bold text-center uppercase transition-all text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20"
-          >
-            Voir Tous Les Produits
-          </Link>
         </>
       )}
     </motion.div>
   );
 }
 
-export default FeaturedProduct;
+export default RelatedProducts;
